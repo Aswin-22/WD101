@@ -1,6 +1,6 @@
 let usrForm = document.getElementById("regForm");
 
-const retriveEntries = () => {
+const retrieveEntries = () => {
   let entries = localStorage.getItem("User_data");
   if (entries) {
     entries = JSON.parse(entries);
@@ -10,22 +10,22 @@ const retriveEntries = () => {
   return entries;
 };
 
-let usrEntries = retriveEntries();
+let usrEntries = retrieveEntries();
 
 const displayEntries = () => {
-  const entries = retriveEntries();
+  const entries = retrieveEntries();
 
   const tableEntries = entries
     .map((entry) => {
-      const namecell = `<td class="border px-4 py-2">${entry.name}</td>`;
-      const emailcell = `<td class="border px-4 py-2">${entry.email}</td>`;
-      const pwdcell = `<td class="border px-4 py-2">${entry.pwd}</td>`;
-      const dobcell = `<td class="border px-4 py-2">${entry.dob}</td>`;
+      const nameCell = `<td class="border px-4 py-2">${entry.name}</td>`;
+      const emailCell = `<td class="border px-4 py-2">${entry.email}</td>`;
+      const pwdCell = `<td class="border px-4 py-2">${entry.pwd}</td>`;
+      const dobCell = `<td class="border px-4 py-2">${entry.dob}</td>`;
       const termsCell = `<td class="border px-4 py-2">${
         entry.terms ? "true" : "false"
       }</td>`;
 
-      const row = `<tr>${namecell} ${emailcell} ${pwdcell} ${dobcell} ${termsCell}</tr>`;
+      const row = `<tr>${nameCell} ${emailCell} ${pwdCell} ${dobCell} ${termsCell}</tr>`;
       return row;
     })
     .join("\n");
@@ -33,9 +33,9 @@ const displayEntries = () => {
   const table = `<table class="table-auto w-full"><tr>
   <th class="px-4 py-2">Name</th>
   <th class="px-4 py-2">Email</th>
-  <th class="px-4 py-2">password</th>
+  <th class="px-4 py-2">Password</th>
   <th class="px-4 py-2">DOB</th>
-  <th class = "px-4 py-2">Accepted Terms?</th>
+  <th class="px-4 py-2">Accepted Terms?</th>
   </tr><tbody>${tableEntries}</tbody></table>`;
 
   let details = document.getElementById("usr-entries");
@@ -60,9 +60,8 @@ const saveForm = (event) => {
   };
 
   usrEntries.push(entry);
-  displayEntries();
-
   localStorage.setItem("User_data", JSON.stringify(usrEntries));
+  displayEntries();
 };
 
 usrForm.addEventListener("submit", saveForm);
@@ -95,3 +94,6 @@ const maxDateStr = new Date(
   .split("T")[0];
 dobInput.setAttribute("min", minDateStr);
 dobInput.setAttribute("max", maxDateStr);
+
+// Display entries on page load
+document.addEventListener("DOMContentLoaded", displayEntries);
