@@ -95,5 +95,4 @@ const maxDateStr = new Date(
 dobInput.setAttribute("min", minDateStr);
 dobInput.setAttribute("max", maxDateStr);
 
-// Display entries on page load
 document.addEventListener("DOMContentLoaded", displayEntries);
