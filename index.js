@@ -1,5 +1,18 @@
 let usrForm = document.getElementById("regForm");
 
+const email = document.getElementById("email");
+
+email.addEventListener("input", () => validate(email));
+
+function validate(element) {
+  if (element.validityTypeMismatch) {
+    element.setCustomValidity("The email is not in the right format!!!");
+    element.reportValidity();
+  } else {
+    element.setCustomValidity(" ");
+  }
+}
+
 const retrieveEntries = () => {
   let entries = localStorage.getItem("User_data");
   if (entries) {
