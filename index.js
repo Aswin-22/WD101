@@ -5,11 +5,11 @@ const email = document.getElementById("email");
 email.addEventListener("input", () => validate(email));
 
 function validate(element) {
-  if (element.validityTypeMismatch) {
+  if (element.validity.typeMismatch) {
     element.setCustomValidity("The email is not in the right format!!!");
     element.reportValidity();
   } else {
-    element.setCustomValidity(" ");
+    element.setCustomValidity("");
   }
 }
 
@@ -57,6 +57,12 @@ const displayEntries = () => {
 
 const saveForm = (event) => {
   event.preventDefault();
+
+  if (!usrForm.checkValidity()) {
+    usrForm.reportValidity();
+    return;
+  }
+
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const pwd = document.getElementById("password").value;
@@ -75,6 +81,7 @@ const saveForm = (event) => {
   usrEntries.push(entry);
   localStorage.setItem("User_data", JSON.stringify(usrEntries));
   displayEntries();
+  usrForm.reset();
 };
 
 usrForm.addEventListener("submit", saveForm);
